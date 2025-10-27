@@ -11,6 +11,22 @@ type Operand interface {
 	IsOperand()
 }
 
+type CSR uint16
+
+func (i CSR) IsOperand() {}
+
+type AquireMemOrderFlag uint8
+
+func (aq AquireMemOrderFlag) IsOperand() {}
+
+type ReleaseMemOrderFlag uint8
+
+func (rl ReleaseMemOrderFlag) IsOperand() {}
+
+type RoundingMode uint8
+
+func (rm RoundingMode) IsOperand() {}
+
 type Immediate uint32
 
 func (i Immediate) IsOperand() {}
@@ -26,6 +42,7 @@ func ImmediateDec(val string) Immediate {
 	}
 	return Immediate(v)
 }
+
 func ImmediateHex(val string) Immediate {
 	val = strings.Replace(val, "0x", "", 1)
 	v, err := strconv.ParseUint(val, 16, 32)
@@ -37,6 +54,7 @@ func ImmediateHex(val string) Immediate {
 	}
 	return Immediate(v)
 }
+
 func ImmediateBin(val string) Immediate {
 	val = strings.Replace(val, "0b", "", 1)
 	v, err := strconv.ParseUint(val, 2, 32)
@@ -153,5 +171,5 @@ func GetOperand(val string) Operand {
 }
 
 var operandsources = map[string]map[string]Operand{
-	"IntReg32": intReg32,
+	"Register": intReg32,
 }

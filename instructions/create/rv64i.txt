@@ -1,0 +1,132 @@
+rv64i
+lwu
+lwu rd,offset(rs1)
+Loads a 32-bit value from memory and zero-extends this to 64 bits before storing it in register rd.
+x[rd] = M[x[rs1] + sext(offset)][31:0]
+0000011
+i
+110
+t
+ld
+ld rd,offset(rs1)
+Loads a 64-bit value from memory into register rd for RV64I.
+x[rd] = M[x[rs1] + sext(offset)][63:0]
+0000011
+i
+011
+t
+sd
+sd rs2,offset(rs1)
+Store 64-bit, values from register rs2 to memory.
+M[x[rs1] + sext(offset)] = x[rs2][63:0]
+0100011
+s
+011
+t
+slli
+slli rd,rs1,shamt
+Performs logical left shift on the 32-bit of value in register rs1 by the shift amount held in the lower 5 bits of the immediate. Encodings with $imm[5] neq 0$ are reserved.
+x[rd] = sext((x[rs1] << shamt)[31:0])
+0010011
+shamt
+001
+0000000
+t
+srli
+srli rd,rs1,shamt
+Performs logical right shift on the 32-bit of value in register rs1 by the shift amount held in the lower 5 bits of the immediate. Encodings with $imm[5] neq 0$ are reserved.
+x[rd] = sext(x[rs1][31:0] >>u shamt)
+0010011
+shamt
+101
+0000000
+t
+srai
+srai rd,rs1,shamt
+Performs arithmetic right shift on the 32-bit of value in register rs1 by the shift amount held in the lower 5 bits of the immediate. Encodings with $imm[5] neq 0$ are reserved.
+x[rd] = sext(x[rs1][31:0] >>s shamt)
+0010011
+shamt
+101
+0010000
+t
+addiw
+addiw rd,rs1,imm
+Adds the sign-extended 12-bit immediate to register rs1 and produces the proper sign-extension of a 32-bit result in rd. Overflows are ignored and the result is the low 32 bits of the result sign-extended to 64 bits. Note, ADDIW rd, rs1, 0 writes the sign-extension of the lower 32 bits of register rs1 into register rd (assembler pseudoinstruction SEXT.W).
+x[rd] = sext((x[rs1] + sext(immediate))[31:0])
+0011011
+i
+000
+t
+slliw
+slliw rd,rs1,shamt
+Performs logical left shift on the low 32-bits value in register rs1 by the shift amount held in the lower 5 bits of the immediate and produce 32-bit results and written to the destination register rd.
+x[rd] = sext((x[rs1] << shamt)[31:0])
+0011011
+r
+001
+0000000
+t
+srliw
+srliw rd,rs1,shamt
+Performs logical right shift on the low 32-bits value in register rs1 by the shift amount held in the lower 5 bits of the immediate and produce 32-bit results and written to the destination register rd.
+x[rd] = sext(x[rs1][31:0] >>u shamt)
+0011011
+r
+101
+0000000
+t
+sraiw
+sraiw rd,rs1,shamt
+Performs arithmetic right shift on the low 32-bits value in register rs1 by the shift amount held in the lower 5 bits of the immediate and produce 32-bit results and written to the destination register rd.
+x[rd] = sext(x[rs1][31:0] >>s shamt)
+0011011
+r
+101
+0100000
+t
+addw
+addw rd,rs1,rs2
+Adds the 32-bit of registers rs1 and 32-bit of register rs2 and stores the result in rd. Arithmetic overflow is ignored and the low 32-bits of the result is sign-extended to 64-bits and written to the destination register.
+x[rd] = sext((x[rs1] + x[rs2])[31:0])
+0111011
+r
+000
+0000000
+t
+subw
+subw rd,rs1,rs2
+Subtract the 32-bit of registers rs1 and 32-bit of register rs2 and stores the result in rd. Arithmetic overflow is ignored and the low 32-bits of the result is sign-extended to 64-bits and written to the destination register.
+x[rd] = sext((x[rs1] - x[rs2])[31:0])
+0111011
+r
+000
+0100000
+t
+sllw
+slliw rd,rs1,rs2
+Performs logical left shift on the low 32-bits value in register rs1 by the shift amount held in the lower 5 bits of register rs2 and produce 32-bit results and written to the destination register rd.
+x[rd] = sext((x[rs1] << x[rs2][4:0])[31:0])
+0111011
+r
+001
+0000000
+t
+srlw
+srlw rd,rs1,rs2
+Performs logical right shift on the low 32-bits value in register rs1 by the shift amount held in the lower 5 bits of register rs2 and produce 32-bit results and written to the destination register rd.
+x[rd] = sext(x[rs1][31:0] >>u x[rs2][4:0])
+0111011
+r
+101
+0000000
+t
+sraw
+sraw rd,rs1,rs2
+Performs arithmetic right shift on the low 32-bits value in register rs1 by the shift amount held in the lower 5 bits of register rs2 and produce 32-bit results and written to the destination register rd.
+x[rd] = sext(x[rs1][31:0] >>s x[rs2][4:0])
+0111011
+r
+101
+0100000
+f

@@ -7,7 +7,7 @@ type UTypeDefinition struct {
 	opcode uint8 // 7-bit
 }
 
-func (def *UTypeDefinition) Construct(rd IntReg32, immediate Immediate) EncodedInstruction {
+func (def *UTypeDefinition) Construct(rd Register, immediate Immediate) EncodedInstruction {
 	if immediate == 0x21646c72 {
 		fmt.Println("Here")
 	}
@@ -19,7 +19,7 @@ func (def *UTypeDefinition) Construct(rd IntReg32, immediate Immediate) EncodedI
 }
 
 func (def *UTypeDefinition) Define(operands []Operand) (Instruction, error) {
-	rd, immediate, err := Cast2[IntReg32, Immediate](operands)
+	rd, immediate, err := Cast2[Register, Immediate](operands)
 	return UTypeInstruction{def, rd, immediate}, err
 }
 
@@ -32,7 +32,7 @@ func NewUTypeDefinition(name, format, description, implementation string, opcode
 
 type UTypeInstruction struct {
 	definition *UTypeDefinition
-	rd         IntReg32
+	rd         Register
 	immediate  Immediate // 20-bit
 }
 

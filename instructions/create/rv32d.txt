@@ -1,0 +1,155 @@
+rv32d
+fld
+fld rd,rs1,offset
+Load a double-precision floating-point value from memory into floating-point register rd.
+aZf[rd] = M[x[rs1] + sext(offset)][63:0]
+
+
+fsd
+fsd rs2,offset(rs1)
+Store a double-precision value from the floating-point registers to memory.
+aZM[x[rs1] + sext(offset)] = f[rs2][63:0]
+
+
+fmadd.d
+fmadd.d rd,rs1,rs2,rs3
+Perform double-precision fused multiply addition.
+aZf[rd] = f[rs1]×f[rs2]+f[rs3]
+
+
+fmsub.d
+fmsub.d rd,rs1,rs2,rs3
+Perform double-precision fused multiply subtraction.
+aZf[rd] = f[rs1]×f[rs2]-f[rs3]
+
+
+fnmsub.d
+fnmsub.d rd,rs1,rs2,rs3
+Perform negated double-precision fused multiply subtraction.
+aZf[rd] = -f[rs1]×f[rs2]+f[rs3]
+
+
+fnmadd.d
+fnmadd.d rd,rs1,rs2,rs3
+Perform negated double-precision fused multiply addition.
+aZf[rd] = -f[rs1]×f[rs2]-f[rs3]
+
+
+fadd.d
+fadd.d rd,rs1,rs2
+Perform double-precision floating-point addition.
+aZf[rd] = f[rs1] + f[rs2]
+
+
+fsub.d
+fsub.d rd,rs1,rs2
+Perform double-precision floating-point addition.
+aZf[rd] = f[rs1] - f[rs2]
+
+
+fmul.d
+fmul.d rd,rs1,rs2
+Perform double-precision floating-point addition.
+aZf[rd] = f[rs1] × f[rs2]
+
+
+fdiv.d
+fdiv.d rd,rs1,rs2
+Perform double-precision floating-point addition.
+aZf[rd] = f[rs1] / f[rs2]
+
+
+fsqrt.d
+fsqrt.d rd,rs1
+Perform double-precision square root.
+aZf[rd] = sqrt(f[rs1])
+
+
+fsgnj.d
+fsgnj.d rd,rs1,rs2
+Produce a result that takes all bits except the sign bit from rs1. The result’s sign bit is rs2’s sign bit.
+aZf[rd] = {f[rs2][63], f[rs1][62:0]}
+
+
+fsgnjn.d
+fsgnjn.d rd,rs1,rs2
+Produce a result that takes all bits except the sign bit from rs1. The result’s sign bit is opposite of rs2’s sign bit.
+aZf[rd] = {~f[rs2][63], f[rs1][62:0]}
+
+
+fsgnjx.d
+fsgnjx.d rd,rs1,rs2
+Produce a result that takes all bits except the sign bit from rs1. The result’s sign bit is XOR of sign bit of rs1 and rs2.
+aZf[rd] = {f[rs1][63] ^ f[rs2][63], f[rs1][62:0]}
+
+
+fmin.d
+fmin.d rd,rs1,rs2
+Write the smaller of double precision data in rs1 and rs2 to rd.
+aZf[rd] = min(f[rs1], f[rs2])
+
+
+fmax.d
+fmax.d rd,rs1,rs2
+Write the larger of double precision data in rs1 and rs2 to rd.
+aZf[rd] = max(f[rs1], f[rs2])
+
+
+fcvt.s.d
+fcvt.s.d rd,rs1
+Converts double floating-point register in rs1 into a floating-point number in floating-point register rd.
+aZf[rd] = f64->f32(f[rs1])
+
+
+fcvt.d.s
+fcvt.d.s rd,rs1
+Converts single floating-point register in rs1 into a double floating-point number in floating-point register rd.
+aZf[rd] = f32->f64(f[rs1])
+
+
+feq.d
+feq.d rd,rs1,rs2
+Performs a quiet equal comparison between double-precision floating-point registers rs1 and rs2 and record the Boolean result in integer register rd. Only signaling NaN inputs cause an Invalid Operation exception. The result is 0 if either operand is NaN.
+aZx[rd] = f[rs1] == f[rs2]
+
+
+flt.d
+flt.d rd,rs1,rs2
+Performs a quiet less comparison between double-precision floating-point registers rs1 and rs2 and record the Boolean result in integer register rd. Only signaling NaN inputs cause an Invalid Operation exception. The result is 0 if either operand is NaN.
+aZx[rd] = f[rs1] < f[rs2]
+
+
+fle.d
+fle.d rd,rs1,rs2
+Performs a quiet less or equal comparison between double-precision floating-point registers rs1 and rs2 and record the Boolean result in integer register rd. Only signaling NaN inputs cause an Invalid Operation exception. The result is 0 if either operand is NaN.
+aZx[rd] = f[rs1] <= f[rs2]
+
+
+fclass.d
+fclass.d rd,rs1
+Examines the value in double-precision floating-point register rs1 and writes to integer register rd a 10-bit mask that indicates the class of the floating-point number. The format of the mask is described in table [classify table]_. The corresponding bit in rd will be set if the property is true and clear otherwise. All other bits in rd are cleared. Note that exactly one bit in rd will be set.
+aZx[rd] = classifys(f[rs1])
+
+
+fcvt.w.d
+fcvt.w.d rd,rs1
+Converts a double-precision floating-point number in floating-point register rs1 to a signed 32-bit integer, in integer register rd.
+aZx[rd] = sext(f64->s32(f[rs1]))
+
+
+fcvt.wu.d
+fcvt.wu.d rd,rs1
+Converts a double-precision floating-point number in floating-point register rs1 to a unsigned 32-bit integer, in integer register rd.
+aZx[rd] = sext(u32f64(f[rs1]))
+
+
+fcvt.d.w
+fcvt.d.w rd,rs1
+Converts a 32-bit signed integer, in integer register rs1 into a double-precision floating-point number in floating-point register rd.
+aZx[rd] = sext(f64->s32(f[rs1]))
+
+
+fcvt.d.wu
+fcvt.d.wu rd,rs1
+Converts a 32-bit unsigned integer, in integer register rs1 into a double-precision floating-point number in floating-point register rd.
+aZf[rd] = u32->f64(x[rs1])

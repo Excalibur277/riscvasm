@@ -7,7 +7,7 @@ type RTypeDefinition struct {
 	funct7 uint8 // 7-bit
 }
 
-func (def *RTypeDefinition) Construct(rd, rs1, rs2 IntReg32) EncodedInstruction {
+func (def *RTypeDefinition) Construct(rd, rs1, rs2 Register) EncodedInstruction {
 	var instruction EncodedInstruction = 0
 	instruction = encode7(instruction, def.opcode, 0)
 	instruction = encode5(instruction, uint8(rd), 7)
@@ -19,7 +19,7 @@ func (def *RTypeDefinition) Construct(rd, rs1, rs2 IntReg32) EncodedInstruction 
 }
 
 func (def *RTypeDefinition) Define(operands []Operand) (Instruction, error) {
-	rd, rs1, rs2, err := Cast3[IntReg32, IntReg32, IntReg32](operands)
+	rd, rs1, rs2, err := Cast3[Register, Register, Register](operands)
 	return RTypeInstruction{def, rd, rs1, rs2}, err
 }
 
@@ -34,9 +34,9 @@ func NewRTypeDefinition(name, format, description, implementation string, opcode
 
 type RTypeInstruction struct {
 	definition *RTypeDefinition
-	rd         IntReg32
-	rs1        IntReg32
-	rs2        IntReg32
+	rd         Register
+	rs1        Register
+	rs2        Register
 }
 
 func (i RTypeInstruction) IsInstruction() {}

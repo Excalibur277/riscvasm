@@ -1,0 +1,100 @@
+rv32a
+lr.w
+lr.w rd, rs1
+load a word from the address in rs1, places the sign-extended value in rd, and registers a reservation on the memory address.
+x[rd] = LoadReserved32(M[x[rs1]])
+0101111
+aZ
+010
+00010
+t
+sc.w
+sc.w rd, rs1
+write a word in rs2 to the address in rs1, provided a valid reservation still exists on that address. SC writes zero to rd on success or a nonzero code on failure.
+x[rd] = StoreConditional32(M[x[rs1]], x[rs2])
+0101111
+a
+010
+00011
+t
+amoswap.w
+amoswap.w rd,rs2,(rs1)
+atomically load a 32-bit signed data value from the address in rs1, place the value into register rd, swap the loaded value and the original 32-bit signed value in rs2, then store the result back to the address in rs1.
+x[rd] = AMO32(M[x[rs1]] SWAP x[rs2])
+0101111
+a
+010
+00001
+t
+amoadd.w
+amoadd.w rd,rs2,(rs1)
+Atomically load a 32-bit signed data value from the address in rs1, place the value into register rd, apply add the loaded value and the original 32-bit signed value in rs2, then store the result back to the address in rs1.
+x[rd] = AMO32(M[x[rs1]] + x[rs2])
+0101111
+a
+010
+00000
+t
+amoxor.w
+amoxor.w rd,rs2,(rs1)
+Atomically load a 32-bit signed data value from the address in rs1, place the value into register rd, apply exclusive or the loaded value and the original 32-bit signed value in rs2, then store the result back to the address in rs1.
+x[rd] = AMO32(M[x[rs1]] ^ x[rs2])
+0101111
+a
+010
+00100
+t
+amoand.w
+amoand.w rd,rs2,(rs1)
+Atomically load a 32-bit signed data value from the address in rs1, place the value into register rd, apply and the loaded value and the original 32-bit signed value in rs2, then store the result back to the address in rs1.
+x[rd] = AMO32(M[x[rs1]] & x[rs2])
+0101111
+a
+010
+01100
+t
+amoor.w
+amoor.w rd,rs2,(rs1)
+Atomically load a 32-bit signed data value from the address in rs1, place the value into register rd, apply or the loaded value and the original 32-bit signed value in rs2, then store the result back to the address in rs1.
+x[rd] = AMO32(M[x[rs1]] | x[rs2])
+0101111
+a
+010
+01000
+t
+amomin.w
+amomin.w rd,rs2,(rs1)
+Atomically load a 32-bit signed data value from the address in rs1, place the value into register rd, apply min operator the loaded value and the original 32-bit signed value in rs2, then store the result back to the address in rs1.
+x[rd] = AMO32(M[x[rs1]] MIN x[rs2])
+0101111
+a
+010
+10000
+t
+amomax.w
+amomax.w rd,rs2,(rs1)
+Atomically load a 32-bit signed data value from the address in rs1, place the value into register rd, apply max operator the loaded value and the original 32-bit signed value in rs2, then store the result back to the address in rs1.
+x[rd] = AMO32(M[x[rs1]] MAX x[rs2])
+0101111
+a
+010
+10100
+t
+amominu.w
+amominu.w rd,rs2,(rs1)
+Atomically load a 32-bit unsigned data value from the address in rs1, place the value into register rd, apply unsigned min the loaded value and the original 32-bit unsigned value in rs2, then store the result back to the address in rs1.
+x[rd] = AMO32(M[x[rs1]] MINU x[rs2])
+0101111
+a
+010
+11000
+t
+amomaxu.w
+amomaxu.w rd,rs2,(rs1)
+Atomically load a 32-bit unsigned data value from the address in rs1, place the value into register rd, apply unsigned max the loaded value and the original 32-bit unsigned value in rs2, then store the result back to the address in rs1.
+x[rd] = AMO32(M[x[rs1]] MAXU x[rs2])
+0101111
+a
+010
+11100
+f

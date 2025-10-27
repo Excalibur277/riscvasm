@@ -5,7 +5,7 @@ type JTypeDefinition struct {
 	opcode uint8 // 7-bit
 }
 
-func (def *JTypeDefinition) Construct(rd IntReg32, immediate Immediate) EncodedInstruction {
+func (def *JTypeDefinition) Construct(rd Register, immediate Immediate) EncodedInstruction {
 	var instruction EncodedInstruction = 0
 	instruction = encode7(instruction, def.opcode, 0)
 	instruction = encode5(instruction, uint8(rd), 7)
@@ -17,7 +17,7 @@ func (def *JTypeDefinition) Construct(rd IntReg32, immediate Immediate) EncodedI
 }
 
 func (def *JTypeDefinition) Define(operands []Operand) (Instruction, error) {
-	rd, immediate, err := Cast2[IntReg32, Immediate](operands)
+	rd, immediate, err := Cast2[Register, Immediate](operands)
 	return JTypeInstruction{def, rd, immediate}, err
 }
 
@@ -30,7 +30,7 @@ func NewJTypeDefinition(name, format, description, implementation string, opcode
 
 type JTypeInstruction struct {
 	definition *JTypeDefinition
-	rd         IntReg32
+	rd         Register
 	immediate  Immediate // 20-bit
 }
 

@@ -1,11 +1,11 @@
 package instruction
 
-type IntReg32 uint8
+type Register uint8
 
-func (reg IntReg32) IsOperand() {}
+func (reg Register) IsOperand() {}
 
 const (
-	X0 IntReg32 = iota
+	X0 Register = iota
 	X1
 	X2
 	X3
@@ -108,7 +108,7 @@ var intReg32 = map[string]Operand{
 }
 
 const (
-	ZERO IntReg32 = iota
+	ZERO Register = iota
 	RA
 	SP
 	GP
@@ -143,13 +143,9 @@ const (
 	T6
 )
 
-type FloatReg32 uint8
-
-func (reg FloatReg32) IsOperand() {}
-
 const (
-	F0 FloatReg32 = 0
-	F1            = iota
+	F0 Register = 0
+	F1          = iota
 	F2
 	F3
 	F4

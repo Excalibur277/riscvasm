@@ -1,0 +1,73 @@
+rv32m
+mul
+mul rd,rs1,rs2
+performs an XLEN-bit \(\times\) XLEN-bit multiplication of signed rs1 by signed rs2 and places the lower XLEN bits in the destination register.
+x[rd] = x[rs1] × x[rs2]
+0110011
+r
+000
+0000001
+t
+mulh
+mulh rd,rs1,rs2
+performs an XLEN-bit \(\times\) XLEN-bit multiplication of signed rs1 by signed rs2 and places the upper XLEN bits in the destination register.
+x[rd] = (x[rs1] s×s x[rs2]) >>s XLEN
+0110011
+r
+001
+0000001
+t
+mulhsu
+mulhsu rd,rs1,rs2
+performs an XLEN-bit \(\times\) XLEN-bit multiplication of signed rs1 by unsigned rs2 and places the upper XLEN bits in the destination register.
+x[rd] = (x[rs1] s latexmath:[$\times$] x[rs2]) >>s XLEN
+0110011
+r
+010
+0000001
+t
+mulhu
+mulhu rd,rs1,rs2
+performs an XLEN-bit \(\times\) XLEN-bit multiplication of unsigned rs1 by unsigned rs2 and places the upper XLEN bits in the destination register.
+x[rd] = (x[rs1] u latexmath:[$\times$] x[rs2]) >>u XLEN
+0110011
+r
+011
+0000001
+t
+div
+div rd,rs1,rs2
+perform an XLEN bits by XLEN bits signed integer division of rs1 by rs2, rounding towards zero.
+x[rd] = x[rs1] /s x[rs2]
+0110011
+r
+100
+0000001
+t
+divu
+divu rd,rs1,rs2
+perform an XLEN bits by XLEN bits unsigned integer division of rs1 by rs2, rounding towards zero.
+x[rd] = x[rs1] /u x[rs2]
+0110011
+r
+101
+0000001
+t
+rem
+rem rd,rs1,rs2
+perform an XLEN bits by XLEN bits signed integer reminder of rs1 by rs2.
+x[rd] = x[rs1] %s x[rs2]
+0110011
+r
+110
+0000001
+t
+remu
+remu rd,rs1,rs2
+perform an XLEN bits by XLEN bits unsigned integer reminder of rs1 by rs2.
+x[rd] = x[rs1] %u x[rs2]
+0110011
+r
+111
+0000001
+f

@@ -1,0 +1,9 @@
+zifencei
+fence.i
+fence.i
+Provides explicit synchronization between writes to instruction memory and instruction fetches on the same hart.
+Fence(Store, Fetch)
+0001111
+i
+001
+f

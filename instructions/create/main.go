@@ -86,7 +86,7 @@ var %s instruction.InstructionDefinition = instruction.New%sTypeDefinition(
 `, module, safeinstruction, strings.ToUpper(encoding[:1])+encoding[1:], instruction, format, description, implementation, opcode))
 
 		switch encoding {
-		case "b", "B", "i", "I", "s", "S", "fence", "FENCE", "Fence":
+		case "b", "B", "i", "I", "s", "S", "fence", "FENCE", "Fence", "CSR", "CSRI":
 			var funct3 string
 			funct3, err = in.ReadString('\n')
 			if err != nil {
@@ -99,7 +99,7 @@ var %s instruction.InstructionDefinition = instruction.New%sTypeDefinition(
 				return
 			}
 			file.WriteString(fmt.Sprintf("    0b00000%s,\n", funct3))
-		case "r", "R", "shamt", "Shamt", "SHAMT":
+		case "r", "R", "RF", "rF", "shamt", "Shamt", "SHAMT":
 			var funct3 string
 			funct3, err = in.ReadString('\n')
 			if err != nil {
@@ -125,6 +125,58 @@ var %s instruction.InstructionDefinition = instruction.New%sTypeDefinition(
 				return
 			}
 			file.WriteString(fmt.Sprintf("    0b0%s,\n", funct7))
+		case "r4", "R4":
+			var funct3 string
+			funct3, err = in.ReadString('\n')
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			funct3 = funct3[:len(funct3)-1]
+			if len(funct3) != 3 || len(strings.ReplaceAll(strings.ReplaceAll(funct3, "0", ""), "1", "")) != 0 {
+				fmt.Println("funct3 must be 3 bits")
+				return
+			}
+			file.WriteString(fmt.Sprintf("    0b00000%s,\n", funct3))
+
+			var funct2 string
+			funct2, err = in.ReadString('\n')
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			funct2 = funct2[:len(funct2)-1]
+			if len(funct2) != 2 || len(strings.ReplaceAll(strings.ReplaceAll(funct2, "0", ""), "1", "")) != 0 {
+				fmt.Println("funct2 must be 2 bits")
+				return
+			}
+			file.WriteString(fmt.Sprintf("    0b000000%s,\n", funct2))
+		case "a", "aZ", "AZ":
+			var funct3 string
+			funct3, err = in.ReadString('\n')
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			funct3 = funct3[:len(funct3)-1]
+			if len(funct3) != 3 || len(strings.ReplaceAll(strings.ReplaceAll(funct3, "0", ""), "1", "")) != 0 {
+				fmt.Println("funct3 must be 3 bits")
+				return
+			}
+			file.WriteString(fmt.Sprintf("    0b00000%s,\n", funct3))
+
+			var funct5 string
+			funct5, err = in.ReadString('\n')
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			funct5 = funct5[:len(funct5)-1]
+			if len(funct5) != 5 || len(strings.ReplaceAll(strings.ReplaceAll(funct5, "0", ""), "1", "")) != 0 {
+				fmt.Println("funct7 must be 7 bits")
+				return
+			}
+			file.WriteString(fmt.Sprintf("    0b000%s,\n", funct5))
 		case "constant", "CONSTANT", "Constant", "u", "U", "j", "J":
 		default:
 			fmt.Println(fmt.Errorf("no real encoding: %s", encoding))

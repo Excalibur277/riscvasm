@@ -6,7 +6,7 @@ type STypeDefinition struct {
 	funct3 uint8 // 3-bit
 }
 
-func (def *STypeDefinition) Construct(rs1, rs2 IntReg32, immediate Immediate) EncodedInstruction {
+func (def *STypeDefinition) Construct(rs1, rs2 Register, immediate Immediate) EncodedInstruction {
 	var instruction EncodedInstruction = 0
 	instruction = encode7(instruction, def.opcode, 0)
 	instruction = encode5(instruction, uint8(immediate), 7) // 0:4
@@ -18,7 +18,7 @@ func (def *STypeDefinition) Construct(rs1, rs2 IntReg32, immediate Immediate) En
 }
 
 func (def *STypeDefinition) Define(operands []Operand) (Instruction, error) {
-	rs1, rs2, immediate, err := Cast3[IntReg32, IntReg32, Immediate](operands)
+	rs1, rs2, immediate, err := Cast3[Register, Register, Immediate](operands)
 	return STypeInstruction{def, rs1, rs2, immediate}, err
 }
 
@@ -32,8 +32,8 @@ func NewSTypeDefinition(name, format, description, implementation string, opcode
 
 type STypeInstruction struct {
 	definition *STypeDefinition
-	rs1        IntReg32
-	rs2        IntReg32
+	rs1        Register
+	rs2        Register
 	immediate  Immediate // 12-bit
 }
 

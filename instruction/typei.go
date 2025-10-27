@@ -6,7 +6,7 @@ type ITypeDefinition struct {
 	funct3 uint8 // 3-bit
 }
 
-func (def *ITypeDefinition) Construct(rd, rs1 IntReg32, immediate Immediate) EncodedInstruction {
+func (def *ITypeDefinition) Construct(rd, rs1 Register, immediate Immediate) EncodedInstruction {
 	var instruction EncodedInstruction = 0
 	instruction = encode7(instruction, def.opcode, 0)
 	instruction = encode5(instruction, uint8(rd), 7)
@@ -17,8 +17,8 @@ func (def *ITypeDefinition) Construct(rd, rs1 IntReg32, immediate Immediate) Enc
 }
 
 func (def *ITypeDefinition) Define(operands []Operand) (Instruction, error) {
-	rd, rs2, immediate, err := Cast3[IntReg32, IntReg32, Immediate](operands)
-	return ITypeInstruction{def, rd, rs2, immediate}, err
+	rd, rs1, immediate, err := Cast3[Register, Register, Immediate](operands)
+	return ITypeInstruction{def, rd, rs1, immediate}, err
 }
 
 func NewITypeDefinition(name, format, description, implementation string, opcode, funct3 uint8) *ITypeDefinition {
@@ -31,8 +31,8 @@ func NewITypeDefinition(name, format, description, implementation string, opcode
 
 type ITypeInstruction struct {
 	definition *ITypeDefinition
-	rd         IntReg32
-	rs1        IntReg32
+	rd         Register
+	rs1        Register
 	immediate  Immediate // 12-bit
 }
 

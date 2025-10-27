@@ -1,0 +1,49 @@
+zicsr
+csrrw
+csrrw rd,offset,rs1
+Atomically swaps values in the CSRs and integer registers. CSRRW reads the old value of the CSR, zero-extends the value to XLEN bits, then writes it to integer register rd. The initial value in rs1 is written to the CSR. If rd=x0, then the instruction shall not read the CSR and shall not cause any of the side effects that might occur on a CSR read.
+t = CSRs[csr]; CSRs[csr] = x[rs1]; x[rd] = t
+1110011
+CSR
+001
+t
+csrrs
+csrrs rd,offset,rs1
+Reads the value of the CSR, zero-extends the value to XLEN bits, and writes it to integer register rd. The initial value in integer register rs1 is treated as a bit mask that specifies bit positions to be set in the CSR. Any bit that is high in rs1 will cause the corresponding bit to be set in the CSR, if that CSR bit is writable. Other bits in the CSR are unaffected (though CSRs might have side effects when written).
+t = CSRs[csr]; CSRs[csr] = t | x[rs1]; x[rd] = t
+1110011
+CSR
+010
+t
+csrrc
+csrrc rd,offset,rs1
+Reads the value of the CSR, zero-extends the value to XLEN bits, and writes it to integer register rd. The initial value in integer register rs1 is treated as a bit mask that specifies bit positions to be cleared in the CSR. Any bit that is high in rs1 will cause the corresponding bit to be cleared in the CSR, if that CSR bit is writable. Other bits in the CSR are unaffected.
+t = CSRs[csr]; CSRs[csr] = t &∼x[rs1]; x[rd] = t
+1110011
+CSR
+011
+t
+csrrwi
+csrrwi rd,offset,uimm
+Update the CSR using an XLEN-bit value obtained by zero-extending a 5-bit unsigned immediate (uimm[4:0]) field encoded in the rs1 field.
+x[rd] = CSRs[csr]; CSRs[csr] = zimm
+1110011
+CSRI
+101
+t
+csrrsi
+csrrsi rd,offset,uimm
+Set CSR bit using an XLEN-bit value obtained by zero-extending a 5-bit unsigned immediate (uimm[4:0]) field encoded in the rs1 field.
+t = CSRs[csr]; CSRs[csr] = t | zimm; x[rd] = t
+1110011
+CSRI
+110
+t
+csrrci
+csrrci rd,offset,uimm
+Clear CSR bit using an XLEN-bit value obtained by zero-extending a 5-bit unsigned immediate (uimm[4:0]) field encoded in the rs1 field.
+t = CSRs[csr]; CSRs[csr] = t &∼zimm; x[rd] = t
+1110011
+CSRI
+111
+f

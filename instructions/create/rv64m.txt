@@ -1,0 +1,46 @@
+rv64m
+mulw
+mulw rd,rs1,rs2
+performs an 32-bit \(\times\) 32-bit multiplication of signed rs1 by signed rs2 and places the lower 32 bits in the destination register.
+x[rd] = x[rs1] × x[rs2]
+0111011
+r
+000
+0000001
+t
+div
+div rd,rs1,rs2
+perform an 32 bits by 32 bits signed integer division of rs1 by rs2, rounding towards zero.
+x[rd] = x[rs1] /s x[rs2]
+0111011
+r
+100
+0000001
+t
+divu
+divu rd,rs1,rs2
+perform an 32 bits by 32 bits unsigned integer division of rs1 by rs2, rounding towards zero.
+x[rd] = x[rs1] /u x[rs2]
+0111011
+r
+101
+0000001
+t
+rem
+rem rd,rs1,rs2
+perform an 32 bits by 32 bits signed integer reminder of rs1 by rs2.
+x[rd] = x[rs1] %s x[rs2]
+0111011
+r
+110
+0000001
+t
+remu
+remu rd,rs1,rs2
+perform an 32 bits by 32 bits unsigned integer reminder of rs1 by rs2.
+x[rd] = x[rs1] %u x[rs2]
+0111011
+r
+111
+0000001
+f

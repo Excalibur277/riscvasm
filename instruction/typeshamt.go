@@ -7,7 +7,7 @@ type ShamtTypeDefinition struct {
 	funct7 uint8 // 7-bit
 }
 
-func (def *ShamtTypeDefinition) Construct(rd, rs1 IntReg32, shamt Immediate) EncodedInstruction {
+func (def *ShamtTypeDefinition) Construct(rd, rs1 Register, shamt Immediate) EncodedInstruction {
 	var instruction EncodedInstruction = 0
 	instruction = encode7(instruction, def.opcode, 0)
 	instruction = encode5(instruction, uint8(rd), 7)
@@ -19,7 +19,7 @@ func (def *ShamtTypeDefinition) Construct(rd, rs1 IntReg32, shamt Immediate) Enc
 }
 
 func (def *ShamtTypeDefinition) Define(operands []Operand) (Instruction, error) {
-	rd, rs1, shamt, err := Cast3[IntReg32, IntReg32, Immediate](operands)
+	rd, rs1, shamt, err := Cast3[Register, Register, Immediate](operands)
 	return ShamtTypeInstruction{def, rd, rs1, shamt}, err
 }
 
@@ -34,8 +34,8 @@ func NewShamtTypeDefinition(name, format, description, implementation string, op
 
 type ShamtTypeInstruction struct {
 	definition *ShamtTypeDefinition
-	rd         IntReg32
-	rs1        IntReg32
+	rd         Register
+	rs1        Register
 	shamt      Immediate // 5-bit
 }
 

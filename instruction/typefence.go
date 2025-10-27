@@ -6,7 +6,7 @@ type FenceTypeDefinition struct {
 	funct3 uint8 // 3-bit
 }
 
-func (def *FenceTypeDefinition) Construct(rd, rs1 IntReg32, pred, succ, fm Immediate) EncodedInstruction {
+func (def *FenceTypeDefinition) Construct(rd, rs1 Register, pred, succ, fm Immediate) EncodedInstruction {
 	var instruction EncodedInstruction = 0
 	instruction = encode7(instruction, def.opcode, 0)
 	instruction = encode5(instruction, uint8(rd), 7)
@@ -19,7 +19,7 @@ func (def *FenceTypeDefinition) Construct(rd, rs1 IntReg32, pred, succ, fm Immed
 }
 
 func (def *FenceTypeDefinition) Define(operands []Operand) (Instruction, error) {
-	rd, rs1, pred, succ, fm, err := Cast5[IntReg32, IntReg32, Immediate, Immediate, Immediate](operands)
+	rd, rs1, pred, succ, fm, err := Cast5[Register, Register, Immediate, Immediate, Immediate](operands)
 	return FenceTypeInstruction{def, rd, rs1, pred, succ, fm}, err
 }
 
@@ -33,8 +33,8 @@ func NewFenceTypeDefinition(name, format, description, implementation string, op
 
 type FenceTypeInstruction struct {
 	definition *FenceTypeDefinition
-	rd         IntReg32
-	rs1        IntReg32
+	rd         Register
+	rs1        Register
 	pred       Immediate // 4-bit
 	succ       Immediate // 4-bit
 	fm         Immediate // 4-bit
