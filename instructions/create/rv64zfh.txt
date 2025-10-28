@@ -1,0 +1,37 @@
+rv64zfh
+fcvt.l.h
+fcvt.l.h rd, rs1
+
+
+1010011
+R2F
+00010
+1100010
+t
+fcvt.lu.h
+fcvt.lu.h rd, rs1
+
+
+1010011
+R2F
+00011
+1100010
+t
+fcvt.h.l
+fcvt.h.l rd, rs1
+
+
+1010011
+R2F
+00010
+1101010
+t
+fcvt.h.lu
+fcvt.h.lu rd, rs1
+
+
+1010011
+R2F
+00011
+1101010
+f

@@ -2,7 +2,7 @@ rv32f
 flw
 flw rd,offset(rs1)
 Load a single-precision floating-point value from memory into floating-point register rd.
-aZf[rd] = M[x[rs1] + sext(offset)][31:0]
+f[rd] = M[x[rs1] + sext(offset)][31:0]
 0000111
 i
 010
@@ -18,7 +18,7 @@ t
 fmadd.s
 fmadd.s rd,rs1,rs2,rs3
 Perform single-precision fused multiply addition.
-aZf[rd] = f[rs1]×f[rs2]+f[rs3]
+f[rd] = f[rs1]×f[rs2]+f[rs3]
 1000011
 R4F
 00
@@ -26,7 +26,7 @@ t
 fmsub.s
 fmsub.s rd,rs1,rs2,rs3
 Perform single-precision fused multiply addition.
-aZf[rd] = f[rs1]×f[rs2]-f[rs3]
+f[rd] = f[rs1]×f[rs2]-f[rs3]
 1000111
 R4F
 00
@@ -34,7 +34,7 @@ t
 fnmsub.s
 fnmsub.s rd,rs1,rs2,rs3
 Perform negated single-precision fused multiply subtraction.
-aZf[rd] = -f[rs1]×f[rs2]+f[rs3]
+f[rd] = -f[rs1]×f[rs2]+f[rs3]
 1001011
 R4F
 00
@@ -42,7 +42,7 @@ t
 fnmadd.s
 fnmadd.s rd,rs1,rs2,rs3
 Perform negated single-precision fused multiply addition.
-aZf[rd] = -f[rs1]×f[rs2]-f[rs3]
+f[rd] = -f[rs1]×f[rs2]-f[rs3]
 1001111
 R4F
 00
@@ -50,7 +50,7 @@ t
 fadd.s
 fadd.s rd,rs1,rs2
 Perform single-precision floating-point addition.
-aZf[rd] = f[rs1] + f[rs2]
+f[rd] = f[rs1] + f[rs2]
 1010011
 RF
 0000000
@@ -58,7 +58,7 @@ t
 fsub.s
 fsub.s rd,rs1,rs2
 Perform single-precision floating-point substraction.
-aZf[rd] = f[rs1] - f[rs2]
+f[rd] = f[rs1] - f[rs2]
 1010011
 RF
 0000100
@@ -66,7 +66,7 @@ t
 fmul.s
 fmul.s rd,rs1,rs2
 Perform single-precision floating-point multiplication.
-aZf[rd] = f[rs1] × f[rs2]
+f[rd] = f[rs1] × f[rs2]
 1010011
 RF
 0001000
@@ -74,7 +74,7 @@ t
 fdiv.s
 fdiv.s rd,rs1,rs2
 Perform single-precision floating-point division.
-aZf[rd] = f[rs1] / f[rs2]
+f[rd] = f[rs1] / f[rs2]
 1010011
 RF
 0001100
@@ -82,7 +82,7 @@ t
 fsqrt.s
 fsqrt.s rd,rs1
 Perform single-precision square root.
-aZf[rd] = sqrt(f[rs1])
+f[rd] = sqrt(f[rs1])
 1010011
 R2F
 00000
@@ -91,7 +91,7 @@ t
 fsgnj.s
 fsgnj.s rd,rs1,rs2
 Produce a result that takes all bits except the sign bit from rs1. The result’s sign bit is rs2’s sign bit.
-aZf[rd] = {f[rs2][31], f[rs1][30:0]}
+f[rd] = {f[rs2][31], f[rs1][30:0]}
 1010011
 r
 000
@@ -100,7 +100,7 @@ t
 fsgnjn.s
 fsgnjn.s rd,rs1,rs2
 Produce a result that takes all bits except the sign bit from rs1. The result’s sign bit is opposite of rs2’s sign bit.
-aZf[rd] = {~f[rs2][31], f[rs1][30:0]}
+f[rd] = {~f[rs2][31], f[rs1][30:0]}
 1010011
 r
 001
@@ -109,7 +109,7 @@ t
 fsgnjx.s
 fsgnjx.s rd,rs1,rs2
 Produce a result that takes all bits except the sign bit from rs1. The result’s sign bit is XOR of sign bit of rs1 and rs2.
-aZf[rd] = {f[rs1][31] ^ f[rs2][31], f[rs1][30:0]}
+f[rd] = {f[rs1][31] ^ f[rs2][31], f[rs1][30:0]}
 1010011
 r
 010
@@ -118,7 +118,7 @@ t
 fmin.s
 fmin.s rd,rs1,rs2
 Write the smaller of single precision data in rs1 and rs2 to rd.
-aZf[rd] = min(f[rs1], f[rs2])
+f[rd] = min(f[rs1], f[rs2])
 1010011
 r
 000
@@ -127,7 +127,7 @@ t
 fmax.s
 fmax.s rd,rs1,rs2
 Write the larger of single precision data in rs1 and rs2 to rd.
-aZf[rd] = max(f[rs1], f[rs2])
+f[rd] = max(f[rs1], f[rs2])
 1010011
 r
 001
@@ -136,7 +136,7 @@ t
 fcvt.w.s
 fcvt.w.s rd,rs1
 Convert a floating-point number in floating-point register rs1 to a signed 32-bit in integer register rd.
-aZx[rd] = sext(f32->s32(f[rs1]))
+x[rd] = sext(f32->s32(f[rs1]))
 1010011
 R2F
 00000
@@ -145,7 +145,7 @@ t
 fcvt.wu.s
 fcvt.wu.s rd,rs1
 Convert a floating-point number in floating-point register rs1 to a signed 32-bit in unsigned integer register rd.
-aZx[rd] = sext(f32->u32(f[rs1]))
+x[rd] = sext(f32->u32(f[rs1]))
 1010011
 R2F
 00001
@@ -154,25 +154,25 @@ t
 fmv.x.w
 fmv.x.w rd,rs1
 Move the single-precision value in floating-point register rs1 represented in IEEE 754-2008 encoding to the lower 32 bits of integer register rd.
-aZx[rd] = sext(f[rs1][31:0])
-1010011
-R2F
-00001
-1100000
-t
-feq.s
-feq.s rd,rs1,rs2
-Performs a quiet equal comparison between single-precision floating-point registers rs1 and rs2 and record the Boolean result in integer register rd. Only signaling NaN inputs cause an Invalid Operation exception. The result is 0 if either operand is NaN.
-aZx[rd] = f[rs1] == f[rs2]
+x[rd] = sext(f[rs1][31:0])
 1010011
 R2F
 00000
 1110000
 t
+feq.s
+feq.s rd,rs1,rs2
+Performs a quiet equal comparison between single-precision floating-point registers rs1 and rs2 and record the Boolean result in integer register rd. Only signaling NaN inputs cause an Invalid Operation exception. The result is 0 if either operand is NaN.
+x[rd] = f[rs1] == f[rs2]
+1010011
+r
+010
+1010000
+t
 flt.s
 flt.s rd,rs1,rs2
 Performs a quiet less comparison between single-precision floating-point registers rs1 and rs2 and record the Boolean result in integer register rd. Only signaling NaN inputs cause an Invalid Operation exception. The result is 0 if either operand is NaN.
-aZx[rd] = f[rs1] < f[rs2]
+x[rd] = f[rs1] < f[rs2]
 1010011
 r
 001
@@ -181,7 +181,7 @@ t
 fle.s
 fle.s rd,rs1,rs2
 Performs a quiet less or equal comparison between single-precision floating-point registers rs1 and rs2 and record the Boolean result in integer register rd. Only signaling NaN inputs cause an Invalid Operation exception. The result is 0 if either operand is NaN.
-aZx[rd] = f[rs1] <= f[rs2]
+x[rd] = f[rs1] <= f[rs2]
 1010011
 r
 000
@@ -190,7 +190,7 @@ t
 fclass.s
 fclass.s rd,rs1
 Examines the value in single-precision floating-point register rs1 and writes to integer register rd a 10-bit mask that indicates the class of the floating-point number. The format of the mask is described in [classify table]_. The corresponding bit in rd will be set if the property is true and clear otherwise. All other bits in rd are cleared. Note that exactly one bit in rd will be set.
-aZx[rd] = classify_s(f[rs1])
+x[rd] = classify_s(f[rs1])
 1010011
 r2
 001
@@ -200,7 +200,7 @@ t
 fcvt.s.w
 fcvt.s.w rd,rs1
 Converts a 32-bit signed integer, in integer register rs1 into a floating-point number in floating-point register rd.
-aZf[rd] = s32->f32(x[rs1])
+f[rd] = s32->f32(x[rs1])
 1010011
 R2F
 00000
@@ -209,7 +209,7 @@ t
 fcvt.s.wu
 fcvt.s.wu rd,rs1
 Converts a 32-bit unsigned integer, in integer register rs1 into a floating-point number in floating-point register rd.
-aZf[rd] = u32->f32(x[rs1])
+f[rd] = u32->f32(x[rs1])
 1010011
 R2F
 00001
@@ -218,10 +218,11 @@ t
 fmv.w.x
 fmv.w.x rd,rs1
 Move the single-precision value encoded in IEEE 754-2008 standard encoding from the lower 32 bits of integer register rs1 to the floating-point register rd.
-aZf[rd] = x[rs1][31:0]
+f[rd] = x[rs1][31:0]
 1010011
 r2
 000
 00000
 1111000
 f
+

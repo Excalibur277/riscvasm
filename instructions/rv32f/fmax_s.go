@@ -6,8 +6,8 @@ var fmax_s instruction.InstructionDefinition = instruction.NewRTypeDefinition(
 	`fmax.s`,
 	`fmax.s rd,rs1,rs2`,
 	`Write the larger of single precision data in rs1 and rs2 to rd.`,
-	`aZf[rd] = max(f[rs1], f[rs2])`,
+	`f[rd] = max(f[rs1], f[rs2])`,
 	0b01010011,
-    0b00000001,
-    0b00010100,
+	0b00000001,
+	0b00010100,
 )

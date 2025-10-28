@@ -1,0 +1,38 @@
+package rv32zfh
+
+import "riscvasm.com/m/v2/instruction"
+
+var Instructions = map[string]instruction.InstructionDefinition{
+    "flh": flh,
+    "fsh": fsh,
+    "fmadd.h": fmadd_h,
+    "fmsub.h": fmsub_h,
+    "fnmsub.h": fnmsub_h,
+    "fnmadd.h": fnmadd_h,
+    "fadd.h": fadd_h,
+    "fsub.h": fsub_h,
+    "fmul.h": fmul_h,
+    "fdiv.h": fdiv_h,
+    "fsqrt.h": fsqrt_h,
+    "fsgnj.h": fsgnj_h,
+    "fsgnjn.h": fsgnjn_h,
+    "fsgnjx.h": fsgnjx_h,
+    "fmin.h": fmin_h,
+    "fmax.h": fmax_h,
+    "fcvt.s.h": fcvt_s_h,
+    "fcvt.h.s": fcvt_h_s,
+    "fcvt.d.h": fcvt_d_h,
+    "fcvt.h.d": fcvt_h_d,
+    "fcvt.q.h": fcvt_q_h,
+    "fcvt.h.q": fcvt_h_q,
+    "feq.h": feq_h,
+    "flt.h": flt_h,
+    "fle.h": fle_h,
+    "fclass.h": fclass_h,
+    "fcvt.w.h": fcvt_w_h,
+    "fcvt.wu.h": fcvt_wu_h,
+    "fmv.x.h": fmv_x_h,
+    "fcvt.h.w": fcvt_h_w,
+    "fcvt.h.wu": fcvt_h_wu,
+    "fmv.h.x": fmv_h_x,
+}

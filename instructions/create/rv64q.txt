@@ -1,0 +1,37 @@
+rv64q
+fcvt.l.q
+fcvt.l.q rd,rs1
+
+x[rd] = f32->s64(f[rs1])
+1010011
+R2F
+00010
+1100011
+t
+fcvt.lu.q
+fcvt.lu.q rd,rs1
+
+x[rd] = f32->u64(f[rs1])
+1010011
+R2F
+00011
+1100011
+t
+fcvt.q.l
+fcvt.q.l rd,rs1
+
+f[rd] = s64->f32(x[rs1])
+1010011
+R2F
+00010
+1101011
+t
+fcvt.q.lu
+fcvt.q.lu rd,rs1
+
+f[rd] = u64->f32(x[rs1])
+1010011
+R2F
+00011
+1101011
+f

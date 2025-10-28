@@ -6,7 +6,7 @@ var fadd_s instruction.InstructionDefinition = instruction.NewRFTypeDefinition(
 	`fadd.s`,
 	`fadd.s rd,rs1,rs2`,
 	`Perform single-precision floating-point addition.`,
-	`aZf[rd] = f[rs1] + f[rs2]`,
+	`f[rd] = f[rs1] + f[rs2]`,
 	0b01010011,
-    0b00000000,
+	0b00000000,
 )

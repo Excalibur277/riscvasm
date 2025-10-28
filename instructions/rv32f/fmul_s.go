@@ -6,7 +6,7 @@ var fmul_s instruction.InstructionDefinition = instruction.NewRFTypeDefinition(
 	`fmul.s`,
 	`fmul.s rd,rs1,rs2`,
 	`Perform single-precision floating-point multiplication.`,
-	`aZf[rd] = f[rs1] × f[rs2]`,
+	`f[rd] = f[rs1] × f[rs2]`,
 	0b01010011,
-    0b00001000,
+	0b00001000,
 )

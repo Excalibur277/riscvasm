@@ -1,0 +1,282 @@
+rv32zfh
+flh
+flh rd,rs1,offset
+Load a half-precision floating-point value from memory into floating-point register rd.
+f[rd] = M[x[rs1] + sext(offset)][63:0]
+0000111
+i
+001
+t
+fsh
+fsh rs2,offset(rs1)
+Store a half-precision value from the floating-point registers to memory.
+aZM[x[rs1] + sext(offset)] = f[rs2][63:0]
+0100111
+s
+001
+t
+fmadd.h
+fmadd.h rd,rs1,rs2,rs3
+Perform half-precision fused multiply addition.
+f[rd] = f[rs1]×f[rs2]+f[rs3]
+1000011
+R4F
+10
+t
+fmsub.h
+fmsub.h rd,rs1,rs2,rs3
+Perform half-precision fused multiply subtraction.
+f[rd] = f[rs1]×f[rs2]-f[rs3]
+1000111
+R4F
+10
+t
+fnmsub.h
+fnmsub.h rd,rs1,rs2,rs3
+Perform negated half-precision fused multiply subtraction.
+f[rd] = -f[rs1]×f[rs2]+f[rs3]
+1001011
+R4F
+10
+t
+fnmadd.h
+fnmadd.h rd,rs1,rs2,rs3
+Perform negated half-precision fused multiply addition.
+f[rd] = -f[rs1]×f[rs2]-f[rs3]
+1001111
+R4F
+10
+t
+fadd.h
+fadd.h rd,rs1,rs2
+Perform half-precision floating-point addition.
+f[rd] = f[rs1] + f[rs2]
+1010011
+RF
+0000010
+t
+fsub.h
+fsub.h rd,rs1,rs2
+Perform half-precision floating-point addition.
+f[rd] = f[rs1] - f[rs2]
+1010011
+RF
+0000110
+t
+fmul.h
+fmul.h rd,rs1,rs2
+Perform half-precision floating-point addition.
+f[rd] = f[rs1] × f[rs2]
+1010011
+RF
+0001010
+t
+fdiv.h
+fdiv.h rd,rs1,rs2
+Perform half-precision floating-point addition.
+f[rd] = f[rs1] / f[rs2]
+1010011
+RF
+0001110
+t
+fsqrt.h
+fsqrt.h rd,rs1
+Perform half-precision square root.
+f[rd] = sqrt(f[rs1])
+1010011
+R2F
+00000
+0101110
+t
+fsgnj.h
+fsgnj.h rd,rs1,rs2
+Produce a result that takes all bits except the sign bit from rs1. The result’s sign bit is rs2’s sign bit.
+f[rd] = {f[rs2][63], f[rs1][62:0]}
+1010011
+r
+000
+0010001
+t
+fsgnjn.h
+fsgnjn.h rd,rs1,rs2
+Produce a result that takes all bits except the sign bit from rs1. The result’s sign bit is opposite of rs2’s sign bit.
+f[rd] = {~f[rs2][63], f[rs1][62:0]}
+1010011
+r
+001
+0010001
+t
+fsgnjx.h
+fsgnjx.h rd,rs1,rs2
+Produce a result that takes all bits except the sign bit from rs1. The result’s sign bit is XOR of sign bit of rs1 and rs2.
+f[rd] = {f[rs1][63] ^ f[rs2][63], f[rs1][62:0]}
+1010011
+r
+010
+0010001
+t
+fmin.h
+fmin.h rd,rs1,rs2
+Write the smaller of half precision data in rs1 and rs2 to rd.
+f[rd] = min(f[rs1], f[rs2])
+1010011
+r
+000
+0010101
+t
+fmax.h
+fmax.h rd,rs1,rs2
+Write the larger of half precision data in rs1 and rs2 to rd.
+f[rd] = max(f[rs1], f[rs2])
+1010011
+r
+001
+0010101
+t
+fcvt.s.h
+fcvt.s.h rd,rs1
+Convert a half-precision floating-point number in floating-point register rs1 to a single-precision flaoting-point number register rd.
+f[rd] = f16->f32(f[rs1])
+1010011
+R2F
+00010
+0100000
+t
+fcvt.h.s
+fcvt.h.s rd,rs1
+Convert a single-precision floating-point number in floating-point register rs1 to a half-precision flaoting-point number register rd.
+f[rd] = f32->f16(f[rs1])
+1010011
+R2F
+00000
+0100010
+t
+fcvt.d.h
+fcvt.d.h rd,rs1
+Convert a half-precision floating-point number in floating-point register rs1 to a double-precision flaoting-point number register rd.
+f[rd] = f16->f64(f[rs1])
+1010011
+R2F
+00010
+0100001
+t
+fcvt.h.d
+fcvt.h.d rd,rs1
+Convert a double-precision floating-point number in floating-point register rs1 to a half-precision flaoting-point number register rd.
+f[rd] = f64->f16(f[rs1])
+1010011
+R2F
+00001
+0100010
+t
+fcvt.q.h
+fcvt.q.h rd,rs1
+Convert a half-precision floating-point number in floating-point register rs1 to a quad-precision flaoting-point number register rd.
+f[rd] = f16->f128(f[rs1])
+1010011
+R2F
+00010
+0100011
+t
+fcvt.h.q
+fcvt.h.q rd,rs1
+Convert a quad-precision floating-point number in floating-point register rs1 to a half-precision flaoting-point number register rd.
+f[rd] = f128->f16(f[rs1])
+1010011
+R2F
+00011
+0100010
+t
+feq.h
+feq.h rd,rs1,rs2
+Performs a quiet equal comparison between half-precision floating-point registers rs1 and rs2 and record the Boolean result in integer register rd. Only signaling NaN inputs cause an Invalid Operation exception. The result is 0 if either operand is NaN.
+x[rd] = f[rs1] == f[rs2]
+1010011
+r
+010
+1010010
+t
+flt.h
+flt.h rd,rs1,rs2
+Performs a quiet less comparison between half-precision floating-point registers rs1 and rs2 and record the Boolean result in integer register rd. Only signaling NaN inputs cause an Invalid Operation exception. The result is 0 if either operand is NaN.
+x[rd] = f[rs1] < f[rs2]
+1010011
+r
+001
+1010010
+t
+fle.h
+fle.h rd,rs1,rs2
+Performs a quiet less or equal comparison between half-precision floating-point registers rs1 and rs2 and record the Boolean result in integer register rd. Only signaling NaN inputs cause an Invalid Operation exception. The result is 0 if either operand is NaN.
+x[rd] = f[rs1] <= f[rs2]
+1010011
+r
+000
+1010010
+t
+fclass.h
+fclass.h rd,rs1
+Examines the value in half-precision floating-point register rs1 and writes to integer register rd a 10-bit mask that indicates the class of the floating-point number. The format of the mask is described in table [classify table]_. The corresponding bit in rd will be set if the property is true and clear otherwise. All other bits in rd are cleared. Note that exactly one bit in rd will be set.
+x[rd] = classifys(f[rs1])
+1010011
+R2
+001
+00000
+1110010
+t
+fcvt.w.h
+fcvt.w.h rd,rs1
+Converts half-precision floating point number in floating point register in rs1 into a sigend integer in integer register rd.
+f[rd] = f16->s32(x[rs1])
+1010011
+R2F
+00000
+1100010
+t
+fcvt.wu.h
+fcvt.wu.h rd,rs1
+Converts half-precision floating point number in floating point register in rs1 into a unsigned integer in integer register rd.
+f[rd] = f16->u32(x[rs1])
+1010011
+R2F
+00001
+1100010
+t
+fmv.x.h
+fmv.x.h rd,rs1
+Move the half-precision value encoded in IEEE 754-2008 standard encoding from the lower 15 bits of integer register rs1 to the floating-point register rd.
+f[rd] = x[rs1][15:0]
+1010011
+R2
+000
+00000
+1110010
+t
+fcvt.h.w
+fcvt.h.w rd,rs1
+Converts a 32-bit signed integer, in integer register rs1 into a half-precision floating-point number in floating-point register rd.
+f[rd] = u32->f16(x[rs1])
+1010011
+R2F
+00000
+1101010
+t
+fcvt.h.wu
+fcvt.h.wu rd,rs1
+Converts a 32-bit unsigned integer, in integer register rs1 into a half-precision floating-point number in floating-point register rd.
+f[rd] = u32->f16(x[rs1])
+1010011
+R2F
+00001
+1101010
+t
+fmv.h.x
+fmv.h.x rd,rs1
+Move the half-precision value in floating-point register rs1 represented in IEEE 754-2008 encoding to the lower 32 bits of integer register rd.
+x[rd] = sext(f[rs1][15:0])
+1010011
+R2
+000
+00000
+1110010
+f
