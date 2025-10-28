@@ -1,8 +1,6 @@
 package instruction
 
-import "encoding/binary"
-
-type EncodedInstruction uint32
+type EncodedInstruction []byte
 
 type InstructionDefinition interface {
 	IsInstructionDefinition()
@@ -30,7 +28,7 @@ type Module struct {
 func (m *Module) Construct() []byte {
 	bytecode := make([]byte, 0, len(m.instructions)*4)
 	for _, instruction := range m.instructions {
-		bytecode = binary.LittleEndian.AppendUint32(bytecode, uint32(instruction.Construct()))
+		bytecode = append(bytecode, instruction.Construct()...)
 	}
 	return bytecode
 }

@@ -1,19 +1,21 @@
 package instruction
 
+import "encoding/binary"
+
 type JTypeDefinition struct {
 	typeDefinition
 	opcode uint8 // 7-bit
 }
 
 func (def *JTypeDefinition) Construct(rd Register, immediate Immediate) EncodedInstruction {
-	var instruction EncodedInstruction = 0
+	var instruction uint32 = 0
 	instruction = encode7(instruction, def.opcode, 0)
 	instruction = encode5(instruction, uint8(rd), 7)
 	instruction = encode9(instruction, uint16(immediate>>12), 12) // 12:19
 	instruction = encode1(instruction, uint8(immediate>>11), 21)  // 11
 	instruction = encode9(instruction, uint16(immediate>>1), 22)  // 1:10
-	instruction = encode1(instruction, uint8(immediate>>20), 31)  // 20
-	return instruction
+	instruction = encode1(instruction, uint8(immediate>>31), 31)  // 20
+	return binary.LittleEndian.AppendUint32([]byte{}, uint32(instruction))
 }
 
 func (def *JTypeDefinition) Define(operands []Operand) (Instruction, error) {

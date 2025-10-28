@@ -1,6 +1,9 @@
 package instruction
 
-import "fmt"
+import (
+	"encoding/binary"
+	"fmt"
+)
 
 type ConstantTypeDefinition struct {
 	typeDefinition
@@ -21,7 +24,7 @@ func (def *ConstantTypeDefinition) Define(operands []Operand) (Instruction, erro
 func NewConstantTypeDefinition(name, format, description, implementation string, instruction uint32) *ConstantTypeDefinition {
 	return &ConstantTypeDefinition{
 		newTypeDefinition(name, format, description, implementation),
-		EncodedInstruction(instruction),
+		binary.LittleEndian.AppendUint32([]byte{}, uint32(instruction)),
 	}
 }
 

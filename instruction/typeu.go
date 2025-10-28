@@ -1,6 +1,9 @@
 package instruction
 
-import "fmt"
+import (
+	"encoding/binary"
+	"fmt"
+)
 
 type UTypeDefinition struct {
 	typeDefinition
@@ -11,11 +14,11 @@ func (def *UTypeDefinition) Construct(rd Register, immediate Immediate) EncodedI
 	if immediate == 0x21646c72 {
 		fmt.Println("Here")
 	}
-	var instruction EncodedInstruction = 0
+	var instruction uint32 = 0
 	instruction = encode7(instruction, def.opcode, 0)
 	instruction = encode5(instruction, uint8(rd), 7)
 	instruction = encode20(instruction, uint32(immediate)>>12, 12) // 12:31
-	return instruction
+	return binary.LittleEndian.AppendUint32([]byte{}, uint32(instruction))
 }
 
 func (def *UTypeDefinition) Define(operands []Operand) (Instruction, error) {

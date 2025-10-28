@@ -14,8 +14,8 @@ NEWLINE    : '\n';
 
 IDENTIFIER: [\p{L}_.] [\p{L}\p{N}_.]*;
 
-DEC : ('0d' [\p{N}]+) | ([\p{N}]+);
-HEX : '0x' [\p{N}a-fA-F]+;
-BIN : '0b' [12]+;
+DEC : ('-' | '+')? (('0d' [\p{N}]+) | ([\p{N}]+));
+HEX : ('-' | '+')? ('0x' [\p{N}a-fA-F]+);
+BIN : ('-' | '+')? ('0b' [12]+);
 
 COMMENT: '#' (~[\r\n])* -> channel(HIDDEN);

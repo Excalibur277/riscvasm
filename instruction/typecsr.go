@@ -1,5 +1,7 @@
 package instruction
 
+import "encoding/binary"
+
 type CSRTypeDefinition struct {
 	typeDefinition
 	opcode uint8 // 7-bit
@@ -7,13 +9,13 @@ type CSRTypeDefinition struct {
 }
 
 func (def *CSRTypeDefinition) Construct(rd, rs1 Register, csr CSR) EncodedInstruction {
-	var instruction EncodedInstruction = 0
+	var instruction uint32 = 0
 	instruction = encode7(instruction, def.opcode, 0)
 	instruction = encode5(instruction, uint8(rd), 7)
 	instruction = encode3(instruction, uint8(def.funct3), 12)
 	instruction = encode5(instruction, uint8(rs1), 15)
 	instruction = encode12(instruction, uint16(csr), 20) // 0:11
-	return instruction
+	return binary.LittleEndian.AppendUint32([]byte{}, uint32(instruction))
 }
 
 func (def *CSRTypeDefinition) Define(operands []Operand) (Instruction, error) {

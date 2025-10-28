@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"encoding/binary"
 	"flag"
 	"fmt"
 	"math"
@@ -46,6 +45,7 @@ func main() {
 
 	data := elfcreator.ElfHeaderData{Endianness: elfcreator.EHEndianness_Little, OSABI: elfcreator.EHOSABI_System_V, Type: elfcreator.EHType_REL, Machine: elfcreator.EHMachine_RISC_V, Version: elfcreator.EHVersion_Current, Flags: 0}
 	elf64 := elf64writer.Create(data)
+
 	elf64.AddSection(elfcreator.NewTextSection(module.Construct(), []elfcreator.Symbol{{Name: "_start", Offset: 0, Size: 0, Bind: elfcreator.STB_GLOBAL, Type: elfcreator.STT_NOTYPE}}))
 	elf64.Complete(sourceFilename)
 	writer, err := os.Create(binaryFilename + ".o")
@@ -114,7 +114,7 @@ func assemble() []byte {
 	bytecode := make([]byte, 0, len(code)*4)
 
 	for _, instruction := range code {
-		bytecode = binary.LittleEndian.AppendUint32(bytecode, uint32(instruction.Construct()))
+		bytecode = append(bytecode, instruction.Construct()...)
 	}
 
 	return bytecode

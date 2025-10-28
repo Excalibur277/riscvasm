@@ -1,5 +1,7 @@
 package instruction
 
+import "encoding/binary"
+
 type RTypeDefinition struct {
 	typeDefinition
 	opcode uint8 // 7-bit
@@ -8,14 +10,14 @@ type RTypeDefinition struct {
 }
 
 func (def *RTypeDefinition) Construct(rd, rs1, rs2 Register) EncodedInstruction {
-	var instruction EncodedInstruction = 0
+	var instruction uint32 = 0
 	instruction = encode7(instruction, def.opcode, 0)
 	instruction = encode5(instruction, uint8(rd), 7)
 	instruction = encode3(instruction, uint8(def.funct3), 12)
 	instruction = encode5(instruction, uint8(rs1), 15)
 	instruction = encode5(instruction, uint8(rs2), 20)
 	instruction = encode7(instruction, uint8(def.funct7), 25)
-	return instruction
+	return binary.LittleEndian.AppendUint32([]byte{}, uint32(instruction))
 }
 
 func (def *RTypeDefinition) Define(operands []Operand) (Instruction, error) {

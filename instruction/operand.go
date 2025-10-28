@@ -33,38 +33,71 @@ func (i Immediate) IsOperand() {}
 
 func ImmediateDec(val string) Immediate {
 	val = strings.Replace(val, "0d", "", 1)
-	v, err := strconv.ParseUint(val, 10, 32)
-	if err != nil {
-		panic(err)
+	if val[:1] == "-" {
+		v, err := strconv.ParseInt(val, 10, 32)
+		if err != nil {
+			panic(err)
+		}
+		if v > math.MaxUint32 {
+			panic(fmt.Errorf("overflowed uint32 with: 0d%s", val))
+		}
+		return Immediate(v)
+	} else {
+		v, err := strconv.ParseUint(val, 10, 32)
+		if err != nil {
+			panic(err)
+		}
+		if v > math.MaxUint32 {
+			panic(fmt.Errorf("overflowed uint32 with: 0d%s", val))
+		}
+		return Immediate(v)
 	}
-	if v > math.MaxUint32 {
-		panic(fmt.Errorf("overflowed uint32 with: 0d%s", val))
-	}
-	return Immediate(v)
 }
 
 func ImmediateHex(val string) Immediate {
 	val = strings.Replace(val, "0x", "", 1)
-	v, err := strconv.ParseUint(val, 16, 32)
-	if err != nil {
-		panic(err)
+	if val[:1] == "-" {
+		v, err := strconv.ParseInt(val, 16, 32)
+		if err != nil {
+			panic(err)
+		}
+		if v > math.MaxUint32 {
+			panic(fmt.Errorf("overflowed uint32 with: 0x%s", val))
+		}
+		return Immediate(v)
+	} else {
+		v, err := strconv.ParseUint(val, 16, 32)
+		if err != nil {
+			panic(err)
+		}
+		if v > math.MaxUint32 {
+			panic(fmt.Errorf("overflowed uint32 with: 0x%s", val))
+		}
+		return Immediate(v)
 	}
-	if v > math.MaxUint32 {
-		panic(fmt.Errorf("overflowed uint32 with: 0x%s", val))
-	}
-	return Immediate(v)
 }
 
 func ImmediateBin(val string) Immediate {
 	val = strings.Replace(val, "0b", "", 1)
-	v, err := strconv.ParseUint(val, 2, 32)
-	if err != nil {
-		panic(err)
+	if val[:1] == "-" {
+		v, err := strconv.ParseInt(val, 2, 32)
+		if err != nil {
+			panic(err)
+		}
+		if v > math.MaxUint32 {
+			panic(fmt.Errorf("overflowed uint32 with: 0b%s", val))
+		}
+		return Immediate(v)
+	} else {
+		v, err := strconv.ParseUint(val, 2, 32)
+		if err != nil {
+			panic(err)
+		}
+		if v > math.MaxUint32 {
+			panic(fmt.Errorf("overflowed uint32 with: 0b%s", val))
+		}
+		return Immediate(v)
 	}
-	if v > math.MaxUint32 {
-		panic(fmt.Errorf("overflowed uint32 with: 0b%s", val))
-	}
-	return Immediate(v)
 }
 
 func Cast[O Operand](o Operand) (O, error) {

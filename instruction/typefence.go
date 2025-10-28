@@ -1,5 +1,7 @@
 package instruction
 
+import "encoding/binary"
+
 type FenceTypeDefinition struct {
 	typeDefinition
 	opcode uint8 // 7-bit
@@ -7,7 +9,7 @@ type FenceTypeDefinition struct {
 }
 
 func (def *FenceTypeDefinition) Construct(rd, rs1 Register, pred, succ, fm Immediate) EncodedInstruction {
-	var instruction EncodedInstruction = 0
+	var instruction uint32 = 0
 	instruction = encode7(instruction, def.opcode, 0)
 	instruction = encode5(instruction, uint8(rd), 7)
 	instruction = encode3(instruction, uint8(def.funct3), 12)
@@ -15,7 +17,7 @@ func (def *FenceTypeDefinition) Construct(rd, rs1 Register, pred, succ, fm Immed
 	instruction = encode4(instruction, uint8(pred), 20)
 	instruction = encode4(instruction, uint8(succ), 24)
 	instruction = encode4(instruction, uint8(fm), 28)
-	return instruction
+	return binary.LittleEndian.AppendUint32([]byte{}, uint32(instruction))
 }
 
 func (def *FenceTypeDefinition) Define(operands []Operand) (Instruction, error) {
