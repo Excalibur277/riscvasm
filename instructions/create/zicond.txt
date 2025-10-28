@@ -1,0 +1,19 @@
+zicond
+czero.eqz
+czero.eqz rd,rs1,rs2
+If rs2 contains the value zero, this instruction writes the value zero to rd. Otherwise, this instruction copies the contents of rs1 to rd. This instruction carries a syntactic dependency from both rs1 and rs2 to rd. Furthermore, if the Zkt extension is implemented, this instruction’s timing is independent of the data values in rs1 and rs2.
+
+0110011
+r
+111
+0000111
+t
+czero.nez
+czero.nez rd,rs1,rs2
+If rs2 contains a nonzero value, this instruction writes the value zero to rd. Otherwise, this instruction copies the contents of rs1 to rd. This instruction carries a syntactic dependency from both rs1 and rs2 to rd. Furthermore, if the Zkt extension is implemented, this instruction’s timing is independent of the data values in rs1 and rs2.
+
+0110011
+r
+101
+0000111
+f

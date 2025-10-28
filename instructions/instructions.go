@@ -18,6 +18,7 @@ import (
 	"riscvasm.com/m/v2/instructions/rv64m"
 	"riscvasm.com/m/v2/instructions/rv64q"
 	"riscvasm.com/m/v2/instructions/rv64zfh"
+	"riscvasm.com/m/v2/instructions/zicond"
 	"riscvasm.com/m/v2/instructions/zicsr"
 	"riscvasm.com/m/v2/instructions/zifencei"
 )
@@ -37,8 +38,9 @@ var sets = map[string]map[string]instruction.InstructionDefinition{
 	"rv64m":    rv64m.Instructions,
 	"rv64q":    rv64q.Instructions,
 	"rv64zfh":  rv64zfh.Instructions,
-	"zifencei": zifencei.Instructions,
+	"zicond":   zicond.Instructions,
 	"zicsr":    zicsr.Instructions,
+	"zifencei": zifencei.Instructions,
 }
 
 func Construct(command string, operands []instruction.Operand) (instruction.Instruction, error) {
