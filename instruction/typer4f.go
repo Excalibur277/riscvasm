@@ -23,7 +23,7 @@ func (def *R4FTypeDefinition) Define(operands []Operand) (Instruction, error) {
 	return R4FTypeInstruction{def, rd, rm, rs1, rs2, rs3}, err
 }
 
-func NewR4FTypeDefinition(name, format, description, implementation string, opcode, funct3, funct2 uint8) *R4FTypeDefinition {
+func NewR4FTypeDefinition(name, format, description, implementation string, opcode, funct2 uint8) *R4FTypeDefinition {
 	return &R4FTypeDefinition{
 		newTypeDefinition(name, format, description, implementation),
 		opcode,

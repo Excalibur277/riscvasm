@@ -22,7 +22,7 @@ func (def *RFTypeDefinition) Define(operands []Operand) (Instruction, error) {
 	return RFTypeInstruction{def, rd, rm, rs1, rs2}, err
 }
 
-func NewRFTypeDefinition(name, format, description, implementation string, opcode, funct3, funct7 uint8) *RFTypeDefinition {
+func NewRFTypeDefinition(name, format, description, implementation string, opcode, funct7 uint8) *RFTypeDefinition {
 	return &RFTypeDefinition{
 		newTypeDefinition(name, format, description, implementation),
 		opcode,
